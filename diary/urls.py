@@ -25,5 +25,5 @@ urlpatterns = [
     path('account/', include ('account.urls')),
     path('blog/', include ('blog.urls')),
     path('journal/', include ('journal.urls')),
-    path('', RedirectView.as_view(url='home/', permanent=True)),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #useful for the development web server to serve statc files
+    path('home/', include ('home.urls')),
+] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #useful for the development web server to serve statc files
