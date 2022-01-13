@@ -60,7 +60,7 @@ ROOT_URLCONF = 'diary.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR/'templates'], #this was added to include the templates in the project directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
