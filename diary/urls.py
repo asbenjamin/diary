@@ -18,10 +18,12 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from home.views import HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', HomeView), #at the moment this seems like repeatition, find a way of redirecting
 
     path('account/', include ('account.urls')),
     path('blog/', include ('blog.urls')),
