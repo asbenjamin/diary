@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rfra8%9$k)&ve4dlv4!0a*c#nar*pqvkc3dwl-$2vj44cmw4c%'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,13 +36,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
+    'django.contrib.auth',              #Core authentication framework and its default models.
+    'django.contrib.contenttypes',      #Django content type system (allows permissions to be associated with models).
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #added
+    #added apps
     'account.apps.AccountConfig', #this object was created for us in /account/apps.py
     'blog.apps.BlogConfig',
     'home.apps.HomeConfig',
@@ -47,10 +51,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware', #Manages sessions across requests
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware', #Associates users with requests using sessions.
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -60,7 +64,8 @@ ROOT_URLCONF = 'diary.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'], #this was added to include the templates in the project directory
+        'DIRS': [BASE_DIR/'templates'], #this was added to include the templates in the project directory. We could also use below
+        #'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,9 +128,21 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = "/home/shamben/djangoprojects/diary/static" #there could be os.path for this, I would need to import os
+#STATIC_ROOT = "/home/shamben/djangoprojects/diary/static" there could be os.path for this, I would need to import os
+
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+        #tells Django where to look for static files that are not tied to a particular app eg. in static in project root
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#mechanism for collecting static files into one place so that they can be served easily-in static_root
+#telling Django that when we run python manage.py collectstatic, gather all static files into a folder called staticfiles in our project root directory. 
+#This feature is very handy for serving static files, especially in production settings
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/home'
