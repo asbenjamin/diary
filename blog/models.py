@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 class Post(models.Model):
+	title = models.CharField(max_length=25, blank=True)
 	description = models.CharField(max_length=255, blank=True)
 	pic = models.ImageField(upload_to='path/to/img')
 	date_posted = models.DateTimeField(default=timezone.now)
@@ -17,7 +18,7 @@ class Post(models.Model):
 		return self.description
 
 	def get_absolute_url(self):
-		return reverse('post-detail', kwargs={'pk': self.pk})
+		return reverse('post-detail', kwargs={'pk': self.pk})	#what is reverse for
  
 
 class Comments(models.Model):

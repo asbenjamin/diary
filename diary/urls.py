@@ -23,7 +23,7 @@ from home.views import HomeView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    #path('', HomeView), #at the moment this seems like repeatition, find a way of redirecting
+    #Look into redirect_as_views
 
     path('account/', include ('account.urls')),
     path('blog/', include ('blog.urls')),

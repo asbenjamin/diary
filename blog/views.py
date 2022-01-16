@@ -22,12 +22,12 @@ class PostListView(ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super(PostListView, self).get_context_data(**kwargs)
-		context['post_list'] = Post.objects.all()
+		context['post_list'] = Post.objects.all() #what other methods can we use in this line
 		return context
 
 class UserPostListView(LoginRequiredMixin, ListView):
 	model = Post
-	template_name = 'feed/user_posts.html'
+	template_name = 'feed/user_posts.html'			#should I make feed a....
 	context_object_name = 'posts'
 	paginate_by = 10
 
@@ -58,7 +58,7 @@ def post_detail(request, pk):
 			return redirect('post-detail', pk=pk)
 	else:
 		form = NewCommentForm()
-	return render(request, 'feed/post_detail.html', {'post':post, 'is_liked':is_liked, 'form':form})
+	return render(request, 'post_detail.html', {'post':post, 'is_liked':is_liked, 'form':form})
 
 @login_required
 def create_post(request):
