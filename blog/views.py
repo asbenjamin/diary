@@ -16,7 +16,7 @@ import json
 
 class PostListView(ListView):
 	model = Post
-	template_name = 'blog/home.html'
+	template_name = 'post_list.html'
 	context_object_name = 'posts'
 	ordering = ['-date_posted']
 	paginate_by = 10

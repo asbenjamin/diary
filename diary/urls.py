@@ -23,10 +23,10 @@ from home.views import HomeView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', HomeView), #at the moment this seems like repeatition, find a way of redirecting
+    #path('', HomeView), #at the moment this seems like repeatition, find a way of redirecting
 
     path('account/', include ('account.urls')),
     path('blog/', include ('blog.urls')),
     path('journal/', include ('journal.urls')),
-    path('home/', include ('home.urls')),
+    path('', include ('home.urls')),
 ] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #useful for the development web server to serve statc files
